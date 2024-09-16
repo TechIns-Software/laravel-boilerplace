@@ -1,6 +1,26 @@
 # Laravel Boilerplate
 
-This is a boileplace for admin panels used by our projects. It contains basic views and login functionality alongside with the nessesary files for deployment and testing.
+This is a boileplace code for admin panels used by our projects. 
+It contains basic views and login functionality alongside with the nessesary files for deployment and testing.
+
+
+### Setup php dependencies
+
+Create the nessesary .env file. If using our docker solution use the `.env.php_dev`:
+
+```
+cp .env.php_dev .env
+```
+
+> NOTE these credentials are viable if using the docker solution. It should NOT be used upon production
+
+Then once `.env` is generated run:
+
+```
+composer install
+php artisan key:generate
+php artisan migrate
+```
 
 ### Build Frontend
 
@@ -9,12 +29,6 @@ For development you can run:
 npm install
 npm run build_dev
 ```
-
-If using the docker solution mentioned at `Setup PHP` section a special docker is launched where:
-1. Npm dependencies are installed
-2. application is build upon watch.
-
-If using the docker solution as mentioned above you may need to restart the container. Look at solution's REAMDE.md for that.
 
 # Github actions & CI/CD
 The actions are used for:
