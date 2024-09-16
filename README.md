@@ -2,9 +2,15 @@
 
 This is a boileplace code for admin panels used by our projects. 
 It contains basic views and login functionality alongside with the nessesary files for deployment and testing.
+Upon frontend bootstrap is used.
 
+## Create project:
 
-### Setup php dependencies
+```
+composer create-project techins-software/laravel-boilerplace my-new-project
+```
+
+## Setup php dependencies
 
 Create the nessesary .env file. If using our docker solution use the `.env.php_dev`:
 
@@ -22,7 +28,7 @@ php artisan key:generate
 php artisan migrate
 ```
 
-### Build Frontend
+## Build Frontend
 
 For development you can run:
 ```
@@ -30,13 +36,13 @@ npm install
 npm run build_dev
 ```
 
-# Github actions & CI/CD
+## Github actions & CI/CD
 The actions are used for:
 
 1. Automated Tagging
 2. Running Unit tests upon PR
 
-# Deployment & Building for release upon Server (CI/CD)
+## Deployment & Building for release upon Server (CI/CD)
 
 It contains the following basic files for building the AWS codepipeline. Also it contains the following files for deployment:
 
