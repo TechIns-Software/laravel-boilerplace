@@ -1,0 +1,20 @@
+version: 0.0
+os: linux
+
+files:
+  - source: /
+    destination: /var/www/staging
+
+hooks:
+  ApplicationStop:
+    - location: deploy/staging/application-stop.sh
+      runas: root
+  BeforeInstall:
+    - location: deploy/staging/clean-files.sh
+      runas: root
+  AfterInstall:
+    - location: deploy/staging/install_app.sh
+      runas: root
+  ApplicationStart:
+    - location: deploy/staging/application-start.sh
+      runas: root

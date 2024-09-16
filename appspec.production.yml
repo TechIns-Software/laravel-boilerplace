@@ -1,0 +1,21 @@
+version: 0.0
+os: linux
+
+files:
+  - source: /
+    destination: /var/www/production
+
+hooks:
+  ApplicationStop:
+    - location: deploy/production/application-stop.sh
+      runas: root
+  BeforeInstall:
+    - location: deploy/production/clean-files.sh
+      runas: root
+  AfterInstall:
+    - location: deploy/production/install_app.sh
+      runas: root
+  ApplicationStart:
+    - location: deploy/production/application-start.sh
+      runas: root
+
