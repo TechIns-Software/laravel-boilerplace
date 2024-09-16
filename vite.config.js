@@ -41,7 +41,6 @@ const paths = [
 
     ...pageStyles,
     ...js,
-    'resources/images/print.png',
 
     'node_modules/jquery/dist/jquery.js',
     "node_modules/jscroll/dist/jquery.jscroll.min.js",

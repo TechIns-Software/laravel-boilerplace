@@ -24,3 +24,19 @@ Route::get('/reset-password',[\App\Http\Controllers\PasswordController::class,'r
 Route::post('/reset-password',[\App\Http\Controllers\PasswordController::class,'resetUserPasswordAction'])
     ->name('password.reset.submit');
 
+Route::middleware( ['auth'])->group(function () {
+    Route::prefix('/user')->group(function () {
+        Route::get('/register', [\App\Http\Controllers\UserController::class, 'register'])->name('user.register.view');
+        Route::post('/register', [\App\Http\Controllers\UserController::class, 'register'])
+            ->name('user.register');
+
+        Route::get('/edit', [\App\Http\Controllers\UserController::class, 'editUSer'])->name('user.edit.view');
+        Route::post('/edit', [\App\Http\Controllers\UserController::class, 'editUSer'])
+            ->name('user.edit');
+    });
+    Route::get('/users', [\App\Http\Controllers\UserController::class, 'listUsers'])->name('user.list');
+});
+
+Route::any('/profile',[\App\Http\Controllers\UserController::class,'profile'])
+    ->name('user.profile')
+    ->middleware("auth:web");

@@ -10,8 +10,5 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{route('user.list')}}">Διαχείρηση Χρηστών</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{route('card.list')}}">Διαχείρηση Slug</a>
-            </li>
         </ul>
 @endsection
