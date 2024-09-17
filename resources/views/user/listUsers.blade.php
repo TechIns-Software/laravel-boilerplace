@@ -55,10 +55,8 @@
                     <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         @empty(request()->input('role'))
                             Όλοι οι χρήστες
-                        @elseif(request()->input('role') ==  App\Models\User::USER_ADMIN)
-                            Διαχειρηστής
                         @else
-                            Κανονικός Χρήστης
+                            {{__("user.".request()->input('role'))}}
                         @endif
                     </button>
                     <div class="dropdown-menu">
@@ -75,7 +73,7 @@
                                    @if(request()->input('role') == App\Models\User::USER_ADMIN) checked @endif
                             >
                                 <input type="radio" name="role" value="{{App\Models\User::USER_ADMIN}}">
-                                Διαχειρηστής
+                                {{__("user".App\Models\User::USER_ADMIN)}}
                             </label>
                         </li>
                         <li>
@@ -83,7 +81,7 @@
                                 <input type="radio" name="role" value="{{App\Models\User::USER_CLIENT}}"
                                        @if(request()->input('role') == App\Models\User::USER_CLIENT) checked @endif
                                 >
-                                Κανονικός Χρήστης
+                                {{__("user.".App\Models\User::USER_CLIENT)}}
                             </label>
                         </li>
                     </div>
