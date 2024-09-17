@@ -3,6 +3,7 @@
     <tr>
         <th>Ονομ/νυμο Χρήστη</th>
         <th>Email</th>
+        <th>Ρόλος</th>
         <th>#</th>
     </tr>
     </thead>
@@ -11,6 +12,7 @@
         <tr>
             <td>{{ $user->name }}</td>
             <td>{{ $user->email }}</td>
+            <td>{{__("user.".$user->role)}}</td>
             <td class="submitContainer">
                 <a href="{{ route('user.edit.view',['user_id'=>$user->id]) }}" >Επεξεργασία</a>
             </td>
