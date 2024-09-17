@@ -73,7 +73,7 @@
                                    @if(request()->input('role') == App\Models\User::USER_ADMIN) checked @endif
                             >
                                 <input type="radio" name="role" value="{{App\Models\User::USER_ADMIN}}">
-                                {{__("user.".App\Models\User::USER_ADMIN)}}
+                                Διαχειρηστής
                             </label>
                         </li>
                         <li>
@@ -81,7 +81,7 @@
                                 <input type="radio" name="role" value="{{App\Models\User::USER_CLIENT}}"
                                        @if(request()->input('role') == App\Models\User::USER_CLIENT) checked @endif
                                 >
-                                {{__("user.".App\Models\User::USER_CLIENT)}}
+                                Κανονικός Χρήστης
                             </label>
                         </li>
                     </div>
