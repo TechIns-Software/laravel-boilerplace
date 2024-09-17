@@ -59,7 +59,6 @@ class UserController extends Controller
                 'name'=>'required',
                 'password'=>'required|confirmed',
                 'role'=>'required|in:ADMIN,CLIENT',
-                'afm'=>'required_if:role,CLIENT',
             ],
                 [
                     'email.email'=>"To email δεν είναι έγκυρο",
@@ -69,7 +68,6 @@ class UserController extends Controller
                     'password.required'=>"Το πεδίο απαιτείτε",
                     'role.required'=>"Ο ρόλος απαιτείτε",
                     'role.in'=>'O ρόλος δεν είναι έγκυρος',
-                    'afm'=>'Το ΑΦΜ απαιτείτε'
                 ]);
 
             if($validator->fails()){
@@ -108,7 +106,6 @@ class UserController extends Controller
                 'email' => ['email'],
                 'password' => 'sometimes|nullable|confirmed',
                 'role'=>'required|in:ADMIN,CLIENT',
-                'afm'=>'required_if:role,CLIENT',
             ],
                 [
                     "role.in" => 'Ο ρόλος δεν ειναι εγγυρος',
