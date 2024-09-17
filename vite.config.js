@@ -49,7 +49,6 @@ const paths = [
     'node_modules/bootstrap/dist/js/bootstrap.bundle.js',
 
     'node_modules/@fortawesome/fontawesome-free/css/all.css',
-    'node_modules/bootstrap-icons/font/bootstrap-icons.css',
 ]
 
 console.log(paths);
