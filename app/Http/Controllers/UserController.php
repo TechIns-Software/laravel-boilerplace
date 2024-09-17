@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -54,16 +55,21 @@ class UserController extends Controller
     {
         if($request->method()=='POST'){
             $validator = Validator::make($request->all(),[
-                    'email'=>['required','email','unique:users,email'],
-                    'name'=>'required',
-                    'password'=>'required|confirmed',
-                ],
+                'email'=>['required','email','unique:users,email'],
+                'name'=>'required',
+                'password'=>'required|confirmed',
+                'role'=>'required|in:ADMIN,CLIENT',
+                'afm'=>'required_if:role,CLIENT',
+            ],
                 [
-                    'email.email'=>"To email δεν ειναι εγγυρο",
+                    'email.email'=>"To email δεν είναι έγκυρο",
                     'email.required'=>"To email απαιτείτε",
                     'email.unique'=>"Το email ήδη υπάρχει",
                     'name.required'=>"Το πεδίο απαιτείτε",
-                    'password.required'=>"Το πεδίο απαιτείτε"
+                    'password.required'=>"Το πεδίο απαιτείτε",
+                    'role.required'=>"Ο ρόλος απαιτείτε",
+                    'role.in'=>'O ρόλος δεν είναι έγκυρος',
+                    'afm'=>'Το ΑΦΜ απαιτείτε'
                 ]);
 
             if($validator->fails()){
@@ -74,6 +80,12 @@ class UserController extends Controller
             $user->email = $request->get('email');
             $user->name = $request->get('name');
             $user->password = Hash::make($request->get('password'));
+            $role = $request->get('role');
+            $user->role = $role;
+
+            if($role == User::USER_CLIENT){
+                $user->afm=$request->get('afm');
+            }
 
             try{
                 $user->save();
@@ -95,6 +107,9 @@ class UserController extends Controller
             $validator = Validator::make($request->all(), [
                 'email' => ['email'],
                 'password' => 'sometimes|nullable|confirmed',
+                'role'=>'required|in:ADMIN,CLIENT',
+                'afm'=>'required_if:role,CLIENT',
+            ],
                 [
                     "role.in" => 'Ο ρόλος δεν ειναι εγγυρος',
                     'email.email' => "To email δεν ειναι εγγυρο",
@@ -103,7 +118,7 @@ class UserController extends Controller
                     'name.required' => "Το πεδίο απαιτείτε",
                     'password.required' => "Το πεδίο απαιτείτε"
                 ]
-            ]);
+            );
 
             if ($validator->fails()) {
                 return Redirect::back()->withErrors($validator)->withInput();
@@ -129,6 +144,16 @@ class UserController extends Controller
                 $user->role = $role;
             }
 
+            $afm = $request->get('afm');
+            if (!empty($afm)) {
+                $user->afm = $afm;
+            }
+
+            $role = $request->get('role');
+            if(!empty($role)){
+                $user->role = $role;
+            }
+
             DB::beginTransaction();
             try {
                 $user->save();
@@ -149,8 +174,9 @@ class UserController extends Controller
     {
 
         $validator = Validator::make($request->all(),[
-           'page'=>"integer|min:1",
-           'limit'=>"integer|min:1",
+            'page'=>"integer|min:1",
+            'limit'=>"integer|min:1",
+            'role' => [Rule::in([User::USER_ADMIN, User::USER_CLIENT,null])],
         ]);
 
         if($validator->fails()){
@@ -158,6 +184,13 @@ class UserController extends Controller
         }
 
         $qb = User::query();
+
+        $role = $request->get('role')??"";
+        $role = trim($role);
+        $role = strtoupper($role);
+        if(!empty($role)){
+            $qb->where('role',$role);
+        }
 
         $searchTerm = $request->get('search')??"";
         $searchTerm = trim($searchTerm);
@@ -194,7 +227,7 @@ class UserController extends Controller
             ]);
 
             if($validator->fails()){
-               return view('user/profile',['user'=>$user])->withErrors($validator);
+                return view('user/profile',['user'=>$user])->withErrors($validator);
             }
 
             // Both instances of User and Customer Have password
@@ -202,7 +235,7 @@ class UserController extends Controller
             try{
                 $user->save();
             } catch (\Exception $e) {
-               return view('user/profile',['user'=>$user])->withErrors('msg',$e->getMessage());
+                return view('user/profile',['user'=>$user])->withErrors('msg',$e->getMessage());
             }
         }
 
