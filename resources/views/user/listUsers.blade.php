@@ -55,8 +55,10 @@
                     <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         @empty(request()->input('role'))
                             Όλοι οι χρήστες
+                        @elseif(request()->input('role') ==  App\Models\User::USER_ADMIN)
+                            Διαχειρηστής
                         @else
-                            {{ request()->input('role') }}
+                            Κανονικός Χρήστης
                         @endif
                     </button>
                     <div class="dropdown-menu">
