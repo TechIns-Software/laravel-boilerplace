@@ -66,6 +66,31 @@
                     </div>
                 </div>
             </div>
+            <label class="col-sm-2" >Ρόλος Χρήστη</label>
+            <div class="col-sm-10">
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    @if(!empty($user))
+                        @php($role=$user->role)
+                    @else
+                        @php($role=old('role'))
+                    @endif
+
+                    <input
+                        type="radio" id="user" class="btn-check" name="role" value="{{App\Models\User::USER_CLIENT}}" checked autocomplete="off"
+                        @if($role==App\Models\User::USER_CLIENT)
+                            checked="checked"
+                        @endif
+                    >
+                    <label class="btn btn-outline-primary" for="user">User</label>
+
+                    <input type="radio" class="btn-check" value="{{App\Models\User::USER_ADMIN}}" name="role" id="admin" autocomplete="off"
+                           @if($role==App\Models\User::USER_ADMIN)
+                               checked="checked"
+                        @endif
+                    >
+                    <label class="btn btn-outline-primary" for="admin">Admin</label>
+                </div>
+            </div>
             <div class="mb-3 row">
                 <label for="password" class="col-sm-2" >Password</label>
                 <div class="col-sm-10">
