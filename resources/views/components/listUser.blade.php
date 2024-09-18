@@ -1,10 +1,10 @@
 <table class="col-12 table table-striped">
     <thead>
     <tr>
-        <th>Ονομ/νυμο Χρήστη</th>
-        <th>Email</th>
-        <th>Ρόλος</th>
-        <th>#</th>
+        <th>{{ __('table_headers.username') }}</th>
+        <th>{{ __('table_headers.email') }}</th>
+        <th>{{ __('table_headers.role') }}</th>
+        <th>{{ __('table_headers.actions') }}</th>
     </tr>
     </thead>
     <tbody>
@@ -14,7 +14,7 @@
             <td>{{ $user->email }}</td>
             <td>{{__("user.".$user->role)}}</td>
             <td class="submitContainer">
-                <a href="{{ route('user.edit.view',['user_id'=>$user->id]) }}" >Επεξεργασία</a>
+                <a href="{{ route('user.edit.view',['user_id'=>$user->id]) }}" >{{__('user.edit')}}</a>
             </td>
         </tr>
     @endforeach
