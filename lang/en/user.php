@@ -7,5 +7,6 @@ return [
     'email' => 'Email',
     'role' => 'Role',
     'actions' => '#',
-    'edit'=>"Edit User"
+    'edit'=>"Edit User",
+    'list_title'=>"User Management"
 ];

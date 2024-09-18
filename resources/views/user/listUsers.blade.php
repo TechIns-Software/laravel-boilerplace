@@ -1,5 +1,7 @@
 @extends('layout.layout-admin')
 
+@section('title',__('user.list_title'))
+
 @section('css')
     <style>
         .dropdown-item > input[type="radio"]{
