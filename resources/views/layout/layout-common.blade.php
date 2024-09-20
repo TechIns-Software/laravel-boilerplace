@@ -1,19 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{Config::get('app.locale')??"en"}}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-
     <title> @yield('title')</title>
-    @vite([
-        'node_modules/bootstrap/dist/css/bootstrap.css',
-        'node_modules/@fortawesome/fontawesome-free/css/all.css',
-    ])
     @section('css')
+        @vite(['resources/css/common.css'])
     @show
     @section('js')
+        {{--
+            Override this section if extra logic is required.
+            Ensure you import borth jquery anbd bootstrap id needed
+        --}}
+        @vite(['resources/js/default.js'])
     @show
 </head>
 <body>

@@ -3,22 +3,7 @@
 @section('title',__('user.list_title'))
 
 @section('css')
-    <style>
-        .dropdown-item > input[type="radio"]{
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            display: inline-block;
-            position: relative;
-            cursor: pointer;
-            outline: none;
-        }
-
-        label.dropdown-item:has(input[type="radio"]:checked){
-            background-color: var(--bs-dropdown-link-active-bg);
-            color: var(--bs-dropdown-link-active-color);
-        }
-    </style>
+    @vite(['resources/css/user/list.css'])
 @endsection
 
 @section('main')

@@ -64,10 +64,19 @@ export default defineConfig(({command,mode})=>{
                 $: 'jquery',
                 jQuery: 'jquery',
                 bootstrap: "bootstrap"
+            },{
+                include: '**/*.js'
             }),
         ],
         build: {
             minify: mode=='dev'?false:true
         },
+        resolve: {
+            alias: {
+                '~': resolve(__dirname,'./node_modules/'),
+                '~bootstrap': resolve(__dirname,'/node_modules/bootstrap'),
+                '~@fortawesome':resolve(__dirname,'/node_modules/@fortawesome')
+            }
+        }
     }
 });
