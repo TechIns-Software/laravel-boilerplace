@@ -1,0 +1,18 @@
+@import "resources/css/common.css";
+
+html {
+    width: 100%;
+    height: 100%;
+}
+body {
+    width: 100%;
+    height: 100%;
+}
+main {
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
