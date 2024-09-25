@@ -59,8 +59,8 @@
                     @endif
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="{{ route('user.profile') }}"><i class="fa-solid fa-lock"></i> Αλλαγή Password</a></li>
-                    <li><a class="dropdown-item bg-danger" href="{{ route('auth.logout') }}"><i class="fa-solid fa-power-off"></i> Logout</a></li>
+                    <li><a class="dropdown-item" href="{{ route('user.profile') }}"><i class="fa-solid fa-lock"></i>&nbsp;{{__('layout.profile_edit')}}</a></li>
+                    <li><a class="dropdown-item bg-danger" href="{{ route('auth.logout') }}"><i class="fa-solid fa-power-off"></i>&nbsp;{{__('layout.logout')}}</a></li>
                 </ul>
             </div>
         </div>
