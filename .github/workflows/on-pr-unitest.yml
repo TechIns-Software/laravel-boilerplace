@@ -23,32 +23,30 @@ jobs:
       - name: Check Out Repo
         uses: actions/checkout@v4
 
-      - name: Remove Default Mysql and install nessesary tools to ping db connection
-        env:
-          DEBIAN_FRONTEND: noninteractive
-        run: |
-          sudo service mysql stop
-          sudo apt-get update && sudo apt-get purge -y mysql* && sudo apt-get install -y mariadb-client-10.6 netcat
-
       # I do not want to modify the .env.testing therefore I spin my own host
       - name: Add hosts to /etc/hosts
         run: |
           sudo echo "127.0.0.1 mariadb" | sudo tee -a /etc/hosts
 
-      - name: Test Connect Into DB
-        run: |
-          docker ps &&
-          nc -vz mariadb 33306 &&
-          mysql -h localhost -u php_usr -pphp_apsswd test_php_app -P 33306 -e "select DATABASE();"
-
+      # Setup PHP with extensions
       - name: Setup PHP with PECL extension
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
-          extensions: bcmath, ctype, curl, dom, fileinfo, filter, hash, mbstring, openssl, pcre, pdo, pdo_mysql, tokenizer, libxml
+          php-version: '8.3'
+          extensions: bcmath, ctype, curl, dom, fileinfo, sodium, filter, hash, mbstring, openssl, pcre, pdo, pdo_mysql, tokenizer, libxml
 
+      # Cache Composer dependencies
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.json') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      # Install dependencies
       - name: Install dependencies
-        uses: php-actions/composer@v6
+        run: composer install --prefer-dist --no-progress
 
       - name: PHPUnit tests
         run: |
